@@ -112,35 +112,34 @@
                                     </tr>
                                 </tbody>
                                <!-- </xpath>                                 -->
-                               <!-- <tfoot> -->
-                                    <!-- <tr>
-                                        <td colspan="7" class="text-right">
-                                            <strong>Subtotal</strong>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="doc.amount_untaxed"/>
-                                        </td>
-                                    </tr> -->
-                                    <!-- <tr>
-                                        <td colspan="7" class="text-right">
-                                            <strong>Taxes</strong>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="doc.amount_tax"/>
-                                        </td>
-                                    </tr> -->
-                                    <!-- <tr>
-                                        <td colspan="7" class="text-right">
-                                            <strong>Total</strong>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="doc.amount_total"/>
-                                        </td>
-                                    </tr>
-                                </tfoot> -->
+								<tfoot>
+									<tr>
+										<!-- First column for alignment -->
+										<td colspan="5" class="text-right" style="border:none">
+											<strong>
+												Price Inclusive of 16% VAT
+											</strong>
+										</td>
+										<!-- Final column for total amount -->
+										<td class="text-right" style="border: 2px solid black;">
+											<span t-field="doc.amount_total" />
+										</td>
+									</tr>
+								</tfoot>
                             </table>
                         </div>
                     </div>
+                    <div class="promo">
+						<p>
+							Fast Delivery Country Wide
+						</p>
+					</div>
+					<div class="invoice-terms">		
+						
+						<div class="mb-3" t-attf-style="#{'text-align:justify;text-justify:inter-word;' if o.company_id.terms_type != 'html' else ''}" t-if="not is_html_empty(o.narration)" name="comment">
+							<span t-field="o.narration" />
+						</div>
+					</div>
                 </div>
             </t> 
         </xpath>
