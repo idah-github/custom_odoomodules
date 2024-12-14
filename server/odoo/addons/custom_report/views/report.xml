@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_external_layout_quotation" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="">
+                    <div class="row">
+                        <div class="col-3 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo" />
+                        </div>
+                    </div>
+                    <!-- First Row: Comprehensive Company Information -->
+                    <div class="row company-info">
+                        <div class="col-6">
+                            <h3 t-field="company.name" class="company-name" />
+                            <p style="margin-bottom: 2px; font-size: 14px; font-style: italic;">
+                                The Home of Custom Made Roofing Solutions
+                            </p>
+                            <div class="company-contact">
+                                <span t-field="company.street" />
+                                ,
+                                <span t-field="company.city" />
+                            </div>
+                            <div class="company-address">
+                                <span>
+                                    P.O. Box 55480 00200 Nairobi.
+                                </span>
+                            </div>
+                            <div class="company-communication">
+                                <strong>Email:</strong>
+                                <span t-field="company.email" />
+                                |
+                                <span t-field="company.website" />
+                            </div>
+                            <div class="company-contact">
+                                <strong>Phone:</strong>
+                                <span t-field="company.phone" />
+                            </div>
+                            <div>
+                                <!-- <strong>PIN:</strong> -->
+                                <span>EQUITY BANK A/C EPZ ATHI RIVER BRANCH </span>
+                            </div>
+                            <div>
+                                <strong>PAY BILL:</strong>
+                                <span>247247 <strong>Acc No:</strong> 1490275129921</span>
+                            </div>
+                            <div>
+                                <strong>PIN:</strong>
+                                <span>P051670455G</span>
+                            </div>
+                            <div>
+                                <strong>VAT:</strong>
+                                <span>P051670455G</span>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <t t-set="award_image_path" t-value="'/custom_report/static/src/img/company_award.png'"/>
+                                <img t-att-src="award_image_path"
+                                    class="award-logo"
+                                    alt="Company Award" />
+                             <!-- style="max-width: 50px; max-height: 50px;"  -->
+                        </div>
+                        <div class="col-3 text-end">
+                            <!-- Dynamically change the title based on the report type -->
+                            <h4>
+                                <t t-if="doc._name == 'sale.order'">Sales Quotation</t>
+                                <t t-if="doc._name == 'account.move' and doc.move_type == 'out_invoice'">Sales Invoice</t>
+                                <t t-if="doc._name == 'account.move' and doc.move_type == 'out_refund'">Credit Note</t>
+                                <!-- Add other conditions if necessary -->
+                            </h4>
+                             <span> <t t-esc="company.get_formatted_date()" /></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

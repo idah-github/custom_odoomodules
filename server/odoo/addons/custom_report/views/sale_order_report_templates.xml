@@ -1,0 +1,148 @@
+<odoo>
+    <template id="account_quotation_document" inherit_id="sale.report_saleorder_document">
+        <!-- Change external layout -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="custom_report.custom_external_layout_quotation">
+                 <t t-set="company" t-value="doc.company_id" />
+
+                <div class="page" style="margin-top: 150px;">
+                    <div class="row" >
+                        <div class="col-4">
+                            <strong>Customer Name:</strong>
+                            <span t-field="doc.partner_id.name" /><br />
+                            <span t-if="doc.partner_id" t-field="doc.partner_id.name"/>
+                            <span t-else="No Partner"/> <br />
+                            <strong>Telephone:</strong>
+                            <span t-field="doc.partner_id.phone" /><br />
+                            <strong>Location:</strong>
+                            <span>
+                                <t t-esc="doc.partner_id.city" />
+                                <t t-if="doc.partner_id.state_id">, <t t-esc="doc.partner_id.state_id.name" /></t>
+                            </span><br />
+                            <strong>KRA PIN:</strong> 
+                            <span t-if="doc.partner_id.vat">
+                                <t t-esc="doc.partner_id.vat"/>
+                            </span>
+                            <span t-else=""></span>
+                            <br/>
+                            <strong>Mobile No:</strong>
+                            <span t-field="doc.partner_id.mobile" />
+                        </div>
+                        <div class="col-4 text-center">
+                            <strong>Self Collection</strong>
+                        </div>
+                        <div class="col-4 text-end">
+                            <h4 t-esc="doc.validity_date" style="margin-bottom:3px"/>
+                            <span t-field="doc.user_id.name" />
+                            <span t-field="doc.name" />
+                        </div>
+                    </div>
+
+                    <!-- Quotation Lines Table -->
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-sm">
+                                <thead style="display: table-row-group">
+                                <!-- <xpath expr="//table[contains(@class, 'o_main_table')]/thead/tr" position="replace"> -->
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Colour</th>
+                                        <th>Meters</th>
+                                        <th>Quantity</th>
+                                        <th class="text-right text-nowrap" style="white-space: nowrap; max-width: 20px;  text-overflow: ellipsis;">
+                                        Unit Cost
+                                        </th>
+                                        <!-- <t t-if="any(line.discount for line in doc.order_line)">
+                                            <th>Discount (%)</th>
+                                        </t>
+                                        <t t-if="any(line.tax for line in doc.order_line)">
+                                            <th>VAT (%)</th>
+                                        </t> -->
+                                        <th>Amount</th>
+                                    </tr>
+                                <!-- </xpath> -->
+                                </thead>
+                                <!-- <xpath expr="//table[contains(@class, 'o_main_table')]/tbody" position="replace"> -->
+                                <tbody>
+                                    <tr t-foreach="doc.order_line" t-as="line">
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <!-- <td>
+                                            <span t-if="line.product_id.color">
+                                                <t t-esc="line.product_id.color"/>
+                                            </span>
+                                            <span t-else="">-</span>
+                                        </td> -->
+                                        <!-- <td>
+                                            <span t-if="line.product_id.meters">
+                                                <t t-esc="line.product_id.meters"/>
+                                            </span>
+                                            <span t-else="">-</span>
+                                        </td> -->
+                                        <!-- Customize these fields based on your specific requirements  -->
+                                        <td> 
+                                            <span t-field="line.color" t-if="line.color"/>
+                                            <span t-else="">-</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.meters" t-if="line.meters"/>
+                                            <span t-else="">-</span>
+                                        </td> 
+                                        <td class="text-right">
+                                            <span t-field="line.product_uom_qty"/>
+                                            <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <!-- <t t-if="any(line.discount for line in doc.order_line)">
+                                            <td class="text-right">
+                                                <span t-esc="'{:.2f}'.format(line.discount) if line.discount else '0.00'"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="any(line.vat for line in doc.order_line)">
+                                            <td class="text-right">
+                                                <span t-esc="', '.join([tax.name for tax in line.tax_id])"/>
+                                            </td>
+                                        </t> -->
+                                        <td class="text-right">
+                                            <span t-field="line.price_total"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                               <!-- </xpath>                                 -->
+                               <!-- <tfoot> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Subtotal</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.amount_untaxed"/>
+                                        </td>
+                                    </tr> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Taxes</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.amount_tax"/>
+                                        </td>
+                                    </tr> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.amount_total"/>
+                                        </td>
+                                    </tr>
+                                </tfoot> -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t> 
+        </xpath>
+    </template>
+</odoo>

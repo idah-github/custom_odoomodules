@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?> <odoo>
+    <template id="account_invoicedocument" inherit_id="account.report_invoice_document">
+        <!-- Replace the entire external layout call -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="custom_report.custom_external_layout_invoice">
+                <t t-set="company" t-value="o.company_id"/>
+                
+                <!-- Customer Information Section -->
+                <div class="page" style="margin-top: 150px;">
+                    <div class="row">
+                        <div class="col-5">
+                            <strong>Customer Name:</strong> <span t-field="o.partner_id.name"/>
+                            <br/>
+                            <strong>Telephone:</strong> <span t-field="o.partner_id.phone"/>
+                            <br/>
+                            <strong>Location:</strong>
+                            <span>
+                                <t t-esc="o.partner_id.city"/> 
+                                <t t-if="o.partner_id.state_id">, <t t-esc='o.partner_id.state_id.name'/></t>
+                            </span>
+                            <br/>
+                            <strong>KRA PIN:</strong>
+                            <span t-if="o.partner_id.vat">
+                                <t t-esc="o.partner_id.vat"/>
+                            </span>
+                            <span t-else=""></span>
+                            <br/>
+                            <strong>Mobile No:</strong> <span t-field="o.partner_id.mobile"/>
+                        </div>
+                        <div class="col-3 text-center">
+                            <strong>Self Collection</strong>
+                        </div>
+                        <div class="col-4 text-end">
+                           <h4 t-esc="company.get_formatted_date(o.invoice_date_due)" style="margin-bottom:3px"/>
+                            <span t-field="o.user_id.name"/> 
+                            <span t-field="o.name" />
+                        </div>
+                    </div>
+
+                    <!-- Original Invoice Lines -->
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="oe_structure"/>
+                    <div class="row" style="margin-bottom:3px">
+                        <div class="col-12">
+                            <t t-set="current_invoice" t-value="o"/>
+                               <!-- Invoice Lines Table -->
+             
+                        
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th  style="white-space: nowrap; max-width: 20px; overflow: hidden; text-overflow: ellipsis;">
+                                        Description
+                                        </th>
+                                        <th>Colour</th>
+                                        <th>Meters</th>
+                                        <th>Quantity</th>
+                                        <th  style="white-space: nowrap; max-width: 20px; overflow: hidden; text-overflow: ellipsis;">
+                                        Unit Cost
+                                        </th>
+                                        <!-- Conditional Discount Column -->
+                                        <!-- <t t-if="any(line.discount > 0 for line in o.invoice_line_ids)">
+                                            <th>Discount (%)</th>
+                                        </t> -->
+                                         <!-- Conditional Taxes Column -->
+                                        <!-- <t t-if="any(line.vat for line in o.invoice_line_ids)">
+                                            <th>VAT (%)</th>
+                                        </t> -->
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td>
+                                            <!-- Customize these fields based on your specific requirements -->
+                                            <span t-field="line.color" t-if="line.color"/>
+                                            <span t-else="">-</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.meters" t-if="line.meters"/>
+                                            <span t-else="">-</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.quantity"/>
+                                            <!-- <span t-field="line.product_uom_id" groups="uom.group_uom"/> -->
+                                        </td>
+                                       
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                       
+                                        
+                                        <!-- <t t-if="any(line.discount > 0 for line in o.invoice_line_ids)">
+                                            <td class="text-right">
+                                                <span t-esc="'{:.2f}'.format(line.discount) if line.discount else '0.00'"/>
+                                            </td>
+                                        </t> -->
+
+                                        <!-- <t t-if="any(line.vat > 0 for line in o.invoice_line_ids)">
+                                            <td class="text-right">
+                                                <span t-esc="', '.join(['{:.2f}'.format(tax.amount) for tax in line.tax_ids])"/>
+                                            </td>
+                                        </t> -->
+                                        <td class="text-right">
+                                            <span t-field="line.price_total"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!-- <tfoot> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Subtotal</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_untaxed"/>
+                                        </td>
+                                    </tr> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Tax</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_tax"/>
+                                        </td>
+                                    </tr> -->
+                                    <!-- <tr>
+                                        <td colspan="7" class="text-right">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_total"/>
+                                        </td>
+                                    </tr>
+                                </tfoot> -->
+                            </table>
+                        
+                   
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

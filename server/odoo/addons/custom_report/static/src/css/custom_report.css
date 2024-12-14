@@ -1,0 +1,29 @@
+.custom-header {
+    font-family: Arial, sans-serif;
+}
+
+.company-logo {
+    max-height: 80px;
+    max-width: 200px;
+}
+
+.company-name {
+    color: #333;
+    font-weight: bold;
+}
+
+.award-logo {
+    max-height: 100px;
+    opacity: 0.8;
+}
+
+.document-type {
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.doc-type-title {
+    color: #007bff;
+    text-transform: uppercase;
+}
