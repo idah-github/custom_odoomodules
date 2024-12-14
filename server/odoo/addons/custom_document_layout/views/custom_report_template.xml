@@ -1,0 +1,46 @@
+<odoo>
+    <template id="custom_external_layout" inherit_id="web.external_layout_standard">
+        <!-- Customizing the header -->
+
+           <!-- <div class="header">  -->
+                <div class="row">
+                    <!-- Left side with company details -->
+                    <div class="col-4">
+                        <h3  style="margin-bottom: 0; font-size: 18px; font-weight: bold;"> RHINO MABATI FACTORY LIMITED</h3>
+                        <p  style="margin-bottom: 2px; font-size: 14px; font-style: italic;"> The Home of Custom Made Roofing Solutionsn</p>
+                        <p  style="margin: 0; font-size: 14px; font-style: italic;"> Kitengela Namanga Rd. Makutano Meru Town</p>
+                        <p  style="margin: 0;"> P.O. Box 55480 00200 Nairobi.</p>
+                        <p>
+                            <span>Email: </span><span  style="margin-right: 10px;">rhinomabati@gmail.com </span>
+                            <span > www.rhinomabati.co.ke </span>
+                        </p>
+                        <p>Tel: <span> 0729628199, 0740229609 </span> </p>
+                        <p>EQUITY BANK A/C EPZ ATHI RIVER BRANCH</p>
+                        <p>PAY BILL: 247247 Acc No: 1490275129921</p>
+                        <p>PIN: P051670455G</p>
+                        <p>VAT: P051670455G</p>
+                    </div>
+                    
+                    <!-- Center with static image -->
+                    <div class="col-4 text-center">
+                        <img src="/doc_layout/static/src/img/Award.png" style="max-width: 50px; max-height: 50px;" alt="Middle Image"/>
+                    </div>
+                    
+                     <!-- Right side with report title and date -->
+                    <div class="col-4 text-end">
+                        <!-- Dynamically change the title based on the report type -->
+                        <h2>
+                            <t t-if="doc._name == 'sale.order'">Sales Quotation</t>
+                            <t t-if="doc._name == 'account.move' and doc.move_type == 'out_invoice'">Sales Invoice</t>
+                            <t t-if="doc._name == 'account.move' and doc.move_type == 'out_refund'">Credit Note</t>
+                            <!-- Add other conditions if necessary -->
+                        </h2>
+                        <!-- <p t-esc="format_date(current_date)" style="font-size: 12px;"/> -->
+                    </div>
+                </div>
+            <!-- </div> -->
+        
+    </template>
+
+   
+</odoo>

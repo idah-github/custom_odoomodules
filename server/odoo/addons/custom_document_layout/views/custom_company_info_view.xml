@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_custom_company_info_form" model="ir.ui.view">
+        <field name="name">custom.company.info.form</field>
+        <field name="model">custom.company.info</field>
+        <field name="arch" type="xml">
+            <form string="Custom Company Information">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="report_header"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="website"/>
+                        <field name="contact_address"/>
+                        <field name="bank_details"/>
+                        <field name="pin"/>
+                        <field name="vat"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_custom_company_info" model="ir.actions.act_window">
+        <field name="name">Custom Company Information</field>
+        <field name="res_model">custom.company.info</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_custom_company_info" name="Custom Company Info" action="action_custom_company_info" parent="base.menu_config"/>
+</odoo>
