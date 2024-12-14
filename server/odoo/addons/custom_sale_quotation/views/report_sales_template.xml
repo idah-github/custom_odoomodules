@@ -1,0 +1,85 @@
+<odoo>
+    <template id="report_saleorder_document_custom" inherit_id="sale.report_saleorder_document">
+        <!-- Customizing the quotation line table headers -->
+        <!-- <xpath expr="//table[contains(@class, 'o_main_table')]/thead/tr" position="replace"> -->
+        <xpath expr="//thead/tr" position="replace">
+
+            <tr>
+                <th>Description</th>
+                <th>Colour</th>
+                <th>Meters</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <!--Discount (%)</th>
+                <th>VAT (%)</th-->
+                <th>Amount</th>
+            </tr>
+        </xpath>
+
+        <!-- Customizing the quotation line table body -->
+        <!-- <xpath expr="//table[contains(@class, 'o_main_table')]/tbody" position="replace"> -->
+        <xpath expr="//tbody" position="replace">
+            <tbody>
+                <!-- <t t-set="total_amount" t-value="0"/> Initialize total_amount -->
+                <tr t-foreach="doc.order_line" t-as="line">
+                    <!-- <tr> -->
+                        <td>
+                            <span t-field="line.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.color"/>
+                        </td>
+                        <td>
+                            <span t-field="line.meters"/>
+                        </td>
+                        <!-- <td>
+                            <span t-field="line.product_uom_qty" t-options="{'widget': 'float'}"/>
+                        </td> -->
+                         <td class="text-right">
+                            <span t-field="line.product_uom_qty"/>
+                            <span t-field="line.product_uom" groups="uom.group_uom"/>
+                        </td>
+                        <!-- <td>
+                            <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                        </td> -->
+                        <td class="text-right">
+                            <span t-field="line.price_unit"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.price_total"/>
+                        </td>
+                        <!--
+                        <td>
+                            <span t-field="line.discount"/>%
+                        </td>
+                        
+                        <td>
+                            <t t-if="line.tax_id"> 
+                                <t t-set="tax_count" t-value="line.tax_id | length"/>
+                                <t t-foreach="line.tax_id" t-as="tax">
+                                    <span t-field="tax.amount"/>%
+                                    <t t-if="tax_count > 1 and line.tax_id.index(tax) != tax_count - 1">, </t> 
+                                </t>
+                            </t>
+                            <t t-else="">
+
+                            </t>
+                        </td >
+                        -->
+                        <!-- <td>
+                            <span t-field="line.computed_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                        </td> -->
+                    <!-- </tr> -->
+                    <!-- <t t-set="total_amount" t-value="total_amount + line.computed_amount"/> Accumulate total -->
+                </tr>
+                <!-- Total row -->
+                <!-- <tr>
+                    <td colspan="7" style="text-align: right;"><strong>Total</strong></td>
+                    <td>
+                        <span t-esc="total_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </td> 
+                </tr> -->
+            </tbody>
+        </xpath>
+    </template>
+</odoo>
