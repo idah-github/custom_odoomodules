@@ -137,8 +137,8 @@
 					</div>
 					<div class="invoice-terms">		
 						
-						<div class="mb-3" t-attf-style="#{'text-align:justify;text-justify:inter-word;' if o.company_id.terms_type != 'html' else ''}" t-if="not is_html_empty(o.narration)" name="comment">
-							<span t-field="o.narration" />
+						<div class="mb-3" t-attf-style="#{'text-align:justify;text-justify:inter-word;' if doc.company_id.terms_type != 'html' else ''}" t-if="not is_html_empty(doc.narration)" name="comment">
+							<span t-field="doc.narration" />
 						</div>
 					</div>
                 </div>
