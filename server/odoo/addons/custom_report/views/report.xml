@@ -63,19 +63,17 @@
                         <div class="col-3 text-end">
                             <!-- Dynamically change the title based on the report type -->
                             <h4 style="margin-bottom:3px;">
-                            <!-- <h4>
-                                <t t-set="current_doc" t-value="o if o is defined else (doc if doc is defined else False)"/>
+                             <h4>
+                                <!-- <t t-set="current_doc" t-value="o if o is defined else (doc if doc is defined else False)"/> -->
                                 
-                                <t t-if="current_doc and hasattr(current_doc, '_name')">
+                                <t t-if="current_doc">
                                     <t t-if="current_doc._name == 'sale.order'">Sales Quotation</t>
                                     <t t-elif="current_doc._name == 'account.move' and current_doc.move_type == 'out_invoice'">Sales Invoice</t>
                                     <t t-elif="current_doc._name == 'account.move' and current_doc.move_type == 'out_refund'">Credit Note</t>
                                     <t t-else="">Document</t>
                                 </t>
-                                <t t-else="">
-                                    <t t-esc="'Unknown Document'"/>
-                                </t>
-                            </h4> -->
+            
+                            </h4> 
                             <!-- <h4>
                                 <t t-set="current_doc" t-value="company.get_document(o, doc)"/>
                                 
