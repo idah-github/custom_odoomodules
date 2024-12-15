@@ -4,6 +4,8 @@
         <xpath expr="//t[@t-call='web.external_layout']" position="replace">
             <t t-call="custom_report.custom_external_layout_invoice">
                 <t t-set="company" t-value="o.company_id"/>
+                <t t-set="current_doc" t-value="o"/>
+
                 
                 <!-- Customer Information Section -->
                 <div class="page" style="margin-top: 150px;">

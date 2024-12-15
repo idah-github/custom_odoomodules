@@ -4,6 +4,7 @@
         <xpath expr="//t[@t-call='web.external_layout']" position="replace">
             <t t-call="custom_report.custom_external_layout_quotation">
                  <t t-set="company" t-value="doc.company_id" />
+                  <t t-set="current_doc" t-value="doc"/>
 
                 <div class="page" style="margin-top: 150px;">
                     <div class="row" >
