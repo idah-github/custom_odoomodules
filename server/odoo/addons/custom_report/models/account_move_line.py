@@ -13,11 +13,8 @@ class AccountMoveLine(models.Model):
     @api.depends('meters', 'quantity', 'price_unit')
     def _compute_amount(self):
         for line in self:
-            # base_amount = line.meters * line.quantity * line.price_unit
-            # discount_amount = base_amount * (line.discount / 100)
-            # line.computed_amount = base_amount - discount_amount
             line.computed_amount = line.meters * line.quantity * line.price_unit
-
+            
     def _get_formatted_date(self, date):
         """
         Convert date to a formatted string in the format: November 14, 2024

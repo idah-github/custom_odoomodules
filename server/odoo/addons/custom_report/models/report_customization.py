@@ -57,3 +57,45 @@ class CustomReportConfiguration(models.Model):
         return award_image_path if os.path.exists(full_path) else False
 
 
+    def get_document(self, o=None, doc=None):
+        """
+        Retrieve document from either o or doc
+        """
+        # Check account move (invoice)
+        if o and o._name == 'account.move':
+            return o
+        
+        # Check sale order (quotation)
+        if doc and doc._name == 'sale.order':
+            return doc
+        
+        return False
+    
+    def get_document_type_name(self, document):
+        """
+        Dynamic document type naming
+        """
+        if not document:
+            return 'Unknown Document'
+        
+        # Detailed type mappings
+        type_mappings = {
+            # Invoice types
+            ('account.move', 'out_invoice'): 'Customer Invoice',
+            ('account.move', 'in_invoice'): 'Vendor Bill',
+            ('account.move', 'out_refund'): 'Customer Credit Note',
+            ('account.move', 'in_refund'): 'Vendor Credit Note',
+            
+            # Quotation types
+            ('sale.order', None): 'Sales Quotation',
+            ('purchase.order', None): 'Purchase Quotation'
+        }
+        
+        # Get the key for lookup
+        key = (
+            document._name, 
+            document.move_type if document._name == 'account.move' else None
+        )
+        
+        # Return mapped name or fallback
+        return type_mappings.get(key, f"{document._name} Document")

@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-3 text-end">
                             <!-- Dynamically change the title based on the report type -->
-                            <h4>
+                            <h4 style="margin-bottom:3px;">
                                 <t t-if="o._name == 'sale.order'">Sales Quotation</t>
                                 <t t-if="o._name == 'account.move' and o.move_type == 'out_invoice'">Sales Invoice</t>
                                 <t t-if="o._name == 'account.move' and o.move_type == 'out_refund'">Credit Note</t>

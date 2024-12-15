@@ -1,5 +1,5 @@
 {
-    'name': 'Custom Document Reports',
+    'name': 'Customizing Document Reports',
     'version': '1.0',
     'summary': 'Customized Quotation and Invoice Reports',
     'description': 'Enhanced reporting layout for: Sales Quotations, Customer Invoices and Vendor Bills',
